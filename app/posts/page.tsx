@@ -1,31 +1,22 @@
 import Link from "next/link"
+import { getAllModels } from "@/app/lib/models"
+import type { Model } from "@/app/types"
+import ModelCard from "@/app/components/ModelCard"
 
-export default async function PostsPage() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts")
-  const posts = await res.json()
-
-  /**
-   * Challenge:
-   * Add a Link to each blog post (surrounding the `h2` elements) that leads
-   * to {`/posts/${post.id}`}
-   * 
-   * Note: these will lead to non-existing pages. We'll fix that next ⏳
-   */
-
+export default async function ModelsPage() {
+  const models = await getAllModels()
   return (
-    <div className="posts-container">
-      <h1 className="font-bold text-4xl mb-4">Blog Posts</h1>
-      <ul className="posts-list">
-        {posts.map((post) => (
-          <li key={post.id} className="post-item hover:text-blue-700">
-            <h2>
-              <Link href={`posts/${post.id}`}>
-                {post.title}
-              </Link>
-            </h2>
-          </li>
+    <div className="container px-4 py-8 mx-auto">
+      <h1 className="mb-8 text-3xl font-bold">All Models</h1>
+      <div
+        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        role="region"
+        aria-label="3D Models Gallery"
+      >
+        {models.map((model: Model) => (
+          <ModelCard key={model.id} model={model} />
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
