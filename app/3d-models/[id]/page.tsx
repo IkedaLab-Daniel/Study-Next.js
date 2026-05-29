@@ -1,69 +1,61 @@
+import { FaRegHeart } from "react-icons/fa6"
+import Pill from "@/app/components/Pill"
 import type { ModelDetailPageProps } from "@/app/types"
 import { getModelById } from "@/app/lib/models"
-import Link from "next/link"
-import { BiLeftArrow } from "react-icons/bi"
-export default async function ModelDetailPage({ params }: ModelDetailPageProps) {
+import placeholderImg from "@/public/placeholder.png"
 
+export default async function ModelDetailPage({ params }: ModelDetailPageProps) {
   const { id } = await params
-  const data = await getModelById(id)
+  const model = await getModelById(id)
 
   return (
-    <main style={{ padding: "24px", maxWidth: "860px", margin: "0 auto" }}>
-      <Link href={`/3d-models`} className="flex items-center gap-2 mb-4 text-slate-600 hover:font-bold">
-        <BiLeftArrow />
-        <span>Back</span>
-      </Link>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 1fr)",
-          gap: "20px",
-          border: "1px solid #e5e7eb",
-          borderRadius: "14px",
-          padding: "20px",
-          background: "#ffffff",
-          boxShadow: "0 8px 24px rgba(0, 0, 0, 0.07)",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            aspectRatio: "16 / 9",
-            borderRadius: "12px",
-            overflow: "hidden",
-            border: "1px solid #e5e7eb",
-            background: "#f9fafb",
-          }}
-        >
+    <div className="container max-w-6xl px-4 py-8 mx-auto">
+      <article className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        {/* Image Section */}
+        <figure className="relative overflow-hidden rounded-lg shadow-lg aspect-square">
           <img
-            src={data.image}
-            alt={data.name}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            src={placeholderImg.src}
+            alt={`3D model of ${model.name}`}
+            className="absolute inset-0 object-cover w-full h-full"
           />
-        </div>
+        </figure>
 
-        <div>
-          <p style={{ margin: 0, color: "#6b7280" }}>
-            Model #{data.id} • {data.category}
-          </p>
-          <h1 style={{ margin: "8px 0", fontSize: "28px", letterSpacing: "-0.01em" }}>
-            {data.name}
-          </h1>
-          <p style={{ margin: "0 0 12px", lineHeight: 1.6 }}>{data.description}</p>
-
+        {/* Content Section */}
+        <section className="flex flex-col justify-center h-full">
           <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              flexWrap: "wrap",
-              color: "#374151",
-            }}
+            className="flex items-center mb-2 text-2xl text-gray-600"
+            role="status"
+            aria-label="Likes count"
           >
-            <span>Likes: {data.likes}</span>
-            <span>Added: {data.dateAdded}</span>
+            <FaRegHeart
+              className="w-5 h-5 mr-2"
+              aria-hidden="true"
+            />
+            <span className="font-light" aria-label={`${model.likes} likes`}>{model.likes}</span>
           </div>
-        </div>
-      </div>
-    </main>
+          <h1 className="mb-6 text-4xl font-bold">{model.name}</h1>
+
+          <Pill
+            className="mb-6 w-fit"
+            role="status"
+            aria-label="Category"
+          >
+            {model.category}
+          </Pill>
+
+          <div className="mb-6 prose prose-lg max-w-none">
+            <p className="leading-relaxed text-gray-700">
+              {model.description}
+            </p>
+          </div>
+
+          <footer className="text-sm text-gray-500">
+            <time dateTime={model.dateAdded}>
+              Added on {new Date(model.dateAdded).toLocaleDateString()}
+            </time>
+          </footer>
+        </section>
+      </article>
+    </div>
   )
 }
