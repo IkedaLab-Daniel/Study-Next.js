@@ -14,12 +14,12 @@ export default async function PostsPage() {
 
   return (
     <div className="posts-container">
-      <h1>Blog Posts</h1>
+      <h1 className="font-bold text-4xl mb-4">Blog Posts</h1>
       <ul className="posts-list">
         {posts.map((post) => (
-          <li key={post.id} className="post-item">
+          <li key={post.id} className="post-item hover:text-blue-700">
             <h2>
-              <Link href={`post/${post.id}`}>
+              <Link href={`posts/${post.id}`}>
                 {post.title}
               </Link>
             </h2>
