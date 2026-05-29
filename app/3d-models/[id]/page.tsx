@@ -1,18 +1,69 @@
 import type { ModelDetailPageProps } from "@/app/types"
-
+import { getModelById } from "@/app/lib/models"
+import Link from "next/link"
+import { BiLeftArrow } from "react-icons/bi"
 export default async function ModelDetailPage({ params }: ModelDetailPageProps) {
-  /**
-   * Challenge: 
-   * Import and use the `getModelById()` function from 
-   * "@/app/lib/models" and use it to get the details for
-   * this specific dynamic page's 3d model.
-   * 
-   * Note that `getModelById()` is an async function.
-   * 
-   * Then display the relevant information about the model,
-   * using the Figma design as a guide if you'd like.
-   */
 
   const { id } = await params
-  return <h1>The id of this model is {id}</h1>
+  const data = await getModelById(id)
+
+  return (
+    <main style={{ padding: "24px", maxWidth: "860px", margin: "0 auto" }}>
+      <Link href={`/3d-models`} className="flex items-center gap-2 mb-4 text-slate-600 hover:font-bold">
+        <BiLeftArrow />
+        <span>Back</span>
+      </Link>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 1fr)",
+          gap: "20px",
+          border: "1px solid #e5e7eb",
+          borderRadius: "14px",
+          padding: "20px",
+          background: "#ffffff",
+          boxShadow: "0 8px 24px rgba(0, 0, 0, 0.07)",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            aspectRatio: "16 / 9",
+            borderRadius: "12px",
+            overflow: "hidden",
+            border: "1px solid #e5e7eb",
+            background: "#f9fafb",
+          }}
+        >
+          <img
+            src={data.image}
+            alt={data.name}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
+
+        <div>
+          <p style={{ margin: 0, color: "#6b7280" }}>
+            Model #{data.id} • {data.category}
+          </p>
+          <h1 style={{ margin: "8px 0", fontSize: "28px", letterSpacing: "-0.01em" }}>
+            {data.name}
+          </h1>
+          <p style={{ margin: "0 0 12px", lineHeight: 1.6 }}>{data.description}</p>
+
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              flexWrap: "wrap",
+              color: "#374151",
+            }}
+          >
+            <span>Likes: {data.likes}</span>
+            <span>Added: {data.dateAdded}</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  )
 }

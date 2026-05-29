@@ -12,7 +12,7 @@ export async function getModelById(id: string | number): Promise<Model> {
   // These functions don't technically need to be async functions,
   // but we're planning for the future when they'll be fetching
   // from a real data source.
-  const foundModel = modelsData.models.find(
+  const foundModel = modelsData.find(
     (model: Model) => model.id.toString() === id.toString()
   )
   if (!foundModel) {
