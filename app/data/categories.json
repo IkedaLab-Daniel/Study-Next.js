@@ -1,0 +1,12 @@
+[
+    { "displayName": "3D Printer", "slug": "3d-printer" },
+    { "displayName": "Art", "slug": "art" },
+    { "displayName": "Education", "slug": "education" },
+    { "displayName": "Fashion", "slug": "fashion" },
+    { "displayName": "Hobby & DIY", "slug": "hobby-diy" },
+    { "displayName": "Household", "slug": "household" },
+    { "displayName": "Miniatures", "slug": "miniatures" },
+    { "displayName": "Props & Cosplay", "slug": "props-cosplay" },
+    { "displayName": "Tools", "slug": "tools" },
+    { "displayName": "Toys & Games", "slug": "toys-games" }
+]
