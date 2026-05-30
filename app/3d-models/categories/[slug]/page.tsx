@@ -1,20 +1,24 @@
 import { getAllModels } from "@/app/lib/models"
 import ModelsGrid from "@/app/components/ModelsGrid"
+import { getCategoryBySlug } from "@/app/lib/categories"
 
-export default async function CategoryView({ params }) {
+export default async function CategoryView({ params }: { params: Promise<{ slug: string }> }) {
 
-    const { slug } = await params
+    const { slug } =  await params
     const allProducts = await getAllModels()
     const categoryProducts = allProducts.filter(product => product.category === slug)
-    console.log(categoryProducts)
+    const categoryName = await getCategoryBySlug(slug)
 
     return (
         <>
-            {categoryProducts && 
-                <ModelsGrid title={`${slug} category`} models={categoryProducts} />
+            {categoryProducts.length > 0 ?
+                ( 
+                    <ModelsGrid title={`${categoryName.displayName} category`} models={categoryProducts} />
+                ) :
+                (
+                    <h1>No product with category {categoryName.displayName}</h1>
+                )
             }
-
-            {!categoryProducts && <p>No products under {slug}</p>}
         </>
     )
 }

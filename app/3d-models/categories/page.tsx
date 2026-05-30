@@ -4,7 +4,6 @@ import Link from "next/link"
 export default async function CategoryPage() {
 
     const categories = await getAllCategories()
-    console.log(categories)
 
     return (
         <div className="container px-4 py-10 mx-auto">
