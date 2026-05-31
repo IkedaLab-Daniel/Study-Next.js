@@ -1,4 +1,4 @@
-import Link from "next/link"
+import NavLink from "../components/NavLink"
 import type { ReactNode } from "react"
 import { getAllCategories } from "@/app/lib/categories"
 import type { Category } from "@/app/types"
@@ -13,18 +13,18 @@ export default function ModelsLayout({ children }: { children: ReactNode }) {
         <div className="relative">
           <nav className="w-full overflow-x-auto md:overflow-visible scrollbar-hide">
             <ul className="flex px-4 py-3 space-x-4 whitespace-nowrap md:flex-col md:p-0 md:space-x-0 md:space-y-3">
-              <Link
+              <NavLink
                 href="/3d-models"
               >
                 All
-              </Link>
+              </NavLink>
               {categories.map(item => (
-                <Link
+                <NavLink
                   href={`/3d-models/categories/${item.slug}`}
                   key={item.slug}
                 >
                   {item.displayName}
-                </Link>
+                </NavLink>
               ))}
             </ul>
           </nav>
