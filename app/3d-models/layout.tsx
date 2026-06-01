@@ -1,11 +1,14 @@
+"use client"
 import NavLink from "../components/NavLink"
 import type { ReactNode } from "react"
 import { getAllCategories } from "@/app/lib/categories"
 import type { Category } from "@/app/types"
+import { usePathname } from "next/navigation"
 
 export default function ModelsLayout({ children }: { children: ReactNode }) {
   const categories: Category[] = getAllCategories()
-  console.log(categories)
+  const pathname = usePathname()
+
   return (
     <div className="relative flex flex-col min-h-screen md:flex-row">
       {/* Responsive Navigation */}
@@ -15,6 +18,7 @@ export default function ModelsLayout({ children }: { children: ReactNode }) {
             <ul className="flex px-4 py-3 space-x-4 whitespace-nowrap md:flex-col md:p-0 md:space-x-0 md:space-y-3">
               <NavLink
                 href="/3d-models"
+                isActive={pathname === "/3d-models"}
               >
                 All
               </NavLink>
@@ -22,6 +26,7 @@ export default function ModelsLayout({ children }: { children: ReactNode }) {
                 <NavLink
                   href={`/3d-models/categories/${item.slug}`}
                   key={item.slug}
+                  isActive={pathname === `/3d-models/categories/${item.slug}`}
                 >
                   {item.displayName}
                 </NavLink>
