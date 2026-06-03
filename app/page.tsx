@@ -1,9 +1,11 @@
-export const dynamic = "force-dynamic"
-
 import Link from "next/link"
 import HeroImage from "@/public/hero-image.png"
 
+export const dynamic = "force-dynamic"
+
 export default function Home() {
+
+  const timestamp = new Date().toLocaleTimeString()
 
   return (
     <main>
@@ -12,6 +14,7 @@ export default function Home() {
           <p className="hidden text-sm text-gray-600 uppercase md:block">
             Your go-to platform for 3D printing files
           </p>
+          <p>Timestampts: {timestamp}</p>
           <h1 className="text-4xl font-bold md:text-5xl">
             Discover what's possible with 3D Printing
           </h1>
