@@ -1,3 +1,4 @@
+import Form from 'next/form'
 import ModelsGrid from "@/app/components/ModelsGrid"
 import { getModels } from "@/app/lib/models"
 
@@ -13,7 +14,7 @@ export default async function Page({ searchParams }) {
 
     return (
         <>
-            <form className="flex items-center gap-3 py-2" role="search">
+            <Form action="/3d-models" className="flex items-center gap-3 py-2" role="search">
                 <label htmlFor="query" className="text-sm text-gray-700">Search 3D Model:</label>
                 <input 
                     id="query"
@@ -23,7 +24,7 @@ export default async function Page({ searchParams }) {
                     defaultValue={query}
                     className="flex-1 min-w-[200px] px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300"
                 />
-            </form>
+            </Form>
             <ModelsGrid title="3D Models" models={filteredModel} />
         </>
     )
