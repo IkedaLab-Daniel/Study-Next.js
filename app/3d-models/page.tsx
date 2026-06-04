@@ -13,15 +13,15 @@ export default async function Page({ searchParams }) {
 
     return (
         <>
-            <form className="searchForm" role="search">
-                <label htmlFor="query" className="searchLabel">Search 3D Model:</label>
+            <form className="flex items-center gap-3 py-2" role="search">
+                <label htmlFor="query" className="text-sm text-gray-700">Search 3D Model:</label>
                 <input 
                     id="query"
                     type="text" 
                     name="query" 
                     placeholder="e.g. Dragon"
                     defaultValue={query}
-                    className="searchInput"
+                    className="flex-1 min-w-[200px] px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300"
                 />
             </form>
             <ModelsGrid title="3D Models" models={filteredModel} />
